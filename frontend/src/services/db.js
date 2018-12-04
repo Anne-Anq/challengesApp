@@ -5,6 +5,9 @@ const baseUrl = "http://localhost:3900/api";
 const getChallenges = async () => {
   return await axios.get(baseUrl + "/challenges");
 };
+const deleteChallenge = async id => {
+  return await axios.delete(baseUrl + "/challenges/" + id);
+};
 
 const login = async data => {
   const { data: jwt } = await axios.post(baseUrl + "/login", data);
@@ -24,4 +27,4 @@ const getUser = () => {
   const decoded = jwt.decode(token);
   return decoded;
 };
-export { getChallenges, login, logout, register, getUser };
+export { getChallenges, login, logout, register, getUser, deleteChallenge };

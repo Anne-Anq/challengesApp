@@ -1,16 +1,31 @@
 import React, { Component } from "react";
-import { getChallenges } from "../services/db";
-import { getUser } from "../services/db";
+import { getChallenges, getUser, deleteChallenge } from "../services/db";
 
 class ChallengesTable extends Component {
   state = {
-    data: [{ _id: "", title: "" }],
+    data: [{ _id: "", title: "", category: "" }],
     error: ""
   };
   async componentDidMount() {
-    const { data } = await getChallenges();
+    let { data } = await getChallenges();
+    data = data.map(d => {
+      d.category = d.category ? d.category.name : "";
+      return d;
+    });
     this.setState({ data });
   }
+  handleDelete = async id => {
+    const previousState = { ...this.state };
+    let data = [...this.state.data];
+    data = data.filter(d => d._id !== id);
+    this.setState({ data });
+    try {
+      await deleteChallenge(id);
+    } catch (ex) {
+      console.log(ex);
+      this.setState(previousState);
+    }
+  };
   render() {
     const challenges = this.state.data;
     const user = getUser();
@@ -22,12 +37,25 @@ class ChallengesTable extends Component {
           <thead>
             <tr>
               <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Category</th>
+              <th scope="col" />
             </tr>
           </thead>
           <tbody>
             {challenges.map(challenge => (
               <tr key={challenge._id}>
                 <td>{challenge.title}</td>
+                <td>{challenge.description}</td>
+                <td>{challenge.category}</td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => this.handleDelete(challenge._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
