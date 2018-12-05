@@ -1,4 +1,4 @@
-import { logout } from "../services/db";
+import { logout } from "../services/user";
 
 const Logout = () => {
   console.log("logout");

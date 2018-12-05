@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { getUser } from "../services/db";
+import { getUser } from "../services/auth";
 
 class Navbar extends Component {
   state = {};
@@ -9,7 +9,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-light bg-light">
         <NavLink className="navbar-brand" to="/">
-          ChallengesApp
+          ChallengeApp
         </NavLink>
         <div className="navbar-nav navbar-expand-sm">
           {!user && (
@@ -25,10 +25,15 @@ class Navbar extends Component {
             </React.Fragment>
           )}
           {user && (
-            <NavLink className="nav-item nav-link m-2" to="/logout">
-              Sign out
-              <i className="fa fa-sign-out m-2" />
-            </NavLink>
+            <React.Fragment>
+              <NavLink className="nav-item nav-link m-2" to="/me">
+                {user.firstName}'s profile
+              </NavLink>
+              <NavLink className="nav-item nav-link m-2" to="/logout">
+                Sign out
+                <i className="fa fa-sign-out m-2" />
+              </NavLink>
+            </React.Fragment>
           )}
         </div>
       </nav>

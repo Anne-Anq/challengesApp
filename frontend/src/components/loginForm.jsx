@@ -1,6 +1,7 @@
 import React from "react";
-import Form from "./form";
-import { login } from "../services/db";
+import Form from "./commons/form";
+import { login } from "../services/user";
+import Joi from "joi-browser";
 
 class LoginForm extends Form {
   state = {
@@ -11,6 +12,12 @@ class LoginForm extends Form {
       }
     },
     error: ""
+  };
+  schema = {
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string().required()
   };
   doSubmit = async () => {
     try {
@@ -26,7 +33,7 @@ class LoginForm extends Form {
       <div className="container">
         <h1>Login</h1>
         <form>
-          {this.renderInput("email", "Email address")}
+          {this.renderInput("email", "Email Address")}
           {this.renderInput("password", "Password")}
           {this.renderSubmitButton()}
         </form>
