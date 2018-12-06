@@ -19,24 +19,21 @@ class ChallengesTable extends Table {
   doDelete = async id => {
     return await deleteChallenge(id);
   };
-  // handleDelete = async id => {
-  //   const previousState = { ...this.state };
-  //   let data = [...this.state.data];
-  //   data = data.filter(d => d._id !== id);
-  //   this.setState({ data });
-  //   try {
-  //     await deleteChallenge(id);
-  //   } catch (ex) {
-  //     console.log(ex);
-  //     this.setState(previousState);
-  //   }
-  // };
+
+  doAdd() {
+    console.log("log take care of that");
+  }
+
   render() {
     const challenges = this.state.data;
     const columns = [
       { header: "Title", path: "title" },
       { header: "Description", path: "description" },
       { header: "category", path: "category" },
+      {
+        header: "",
+        content: id => this.renderAddButton(id)
+      },
       {
         header: "",
         content: id => this.renderDeleteButton(id)

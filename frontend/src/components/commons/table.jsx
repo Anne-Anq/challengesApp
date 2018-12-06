@@ -10,6 +10,13 @@ class Table extends Component {
       </button>
     );
   };
+  renderAddButton = id => {
+    return (
+      <button className="btn btn-primary" onClick={() => this.handleAdd(id)}>
+        Take it!
+      </button>
+    );
+  };
 
   handleDelete = async id => {
     const previousState = { ...this.state };
@@ -22,6 +29,11 @@ class Table extends Component {
       console.log(ex);
       this.setState(previousState);
     }
+  };
+
+  handleAdd = id => {
+    //await
+    this.doAdd();
   };
 
   render() {
