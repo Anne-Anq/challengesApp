@@ -31,9 +31,9 @@ class Table extends Component {
     }
   };
 
-  handleAdd = id => {
-    //await
-    this.doAdd();
+  handleAdd = async id => {
+    const user = await this.doAdd(id);
+    //window.location = "/me";
   };
 
   render() {

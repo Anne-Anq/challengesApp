@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import Table from "./commons/table";
-import { getUser } from "../services/auth";
-import { getChallenge, quitChallenge } from "../services/challenges";
+import { quitChallenge } from "../services/users";
+import { getUserData } from "../services/users";
 
 class MyProfile extends Table {
   state = {
@@ -9,26 +9,24 @@ class MyProfile extends Table {
     error: ""
   };
   async componentDidMount() {
-    const { challengesTaken } = await getUser();
-
-    const data = await Promise.all(
-      challengesTaken.map(async c => {
-        const { data: challenge } = await getChallenge(c);
-        return challenge;
-      })
-    );
+    const {
+      data: { challengesTaken: data }
+    } = await getUserData(this.props.user._id);
     this.setState({ data });
   }
   doDelete = async id => {
-    console.log("what happens when deleting from taken challenges");
-    return quitChallenge(id);
+    try {
+      return await quitChallenge(id);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
   render() {
     const columns = [
       { header: "Title", path: "title" },
       {
         header: "",
-        content: id => this.renderDeleteButton(id)
+        content: ({ _id }) => this.renderDeleteButton(_id)
       }
     ];
     return (

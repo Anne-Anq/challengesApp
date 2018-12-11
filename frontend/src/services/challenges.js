@@ -18,18 +18,14 @@ const postChallenge = async data => {
   return await axios.post(apiEndPoint, data);
 };
 
-const quitChallenge = async (userId, challengeId) => {
-  console.log(`${userId}quitChalleng${challengeId}`);
+const takeChallenge = async id => {
+  return await axios.put(`${apiEndPoint}/${id}`);
 };
 
-const takeChallenge = async (userId, challengeId) => {
-  console.log(`${userId}take Challeng${challengeId}`);
-};
 export {
   getChallenges,
   getChallenge,
   postChallenge,
   deleteChallenge,
-  takeChallenge,
-  quitChallenge
+  takeChallenge
 };

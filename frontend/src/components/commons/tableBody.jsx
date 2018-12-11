@@ -7,7 +7,7 @@ const TableBody = ({ datas, columns }) => {
         <tr key={data._id}>
           {columns.map((c, i) => {
             return (
-              <td key={i}>{c.content ? c.content(data._id) : data[c.path]}</td>
+              <td key={i}>{c.content ? c.content(data) : data[c.path]}</td>
             );
           })}
         </tr>
