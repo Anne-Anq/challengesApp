@@ -7,6 +7,7 @@ import {
 } from "../services/challenges";
 import { getUser } from "../services/auth";
 import Table from "./commons/table";
+import Hover from "./commons/hover";
 
 class ChallengesTable extends Table {
   state = {
@@ -41,17 +42,37 @@ class ChallengesTable extends Table {
     }
   };
   renderFollowers = num => {
-    return num !== 0
-      ? num > 1
-        ? `${num} persons took this challenge!`
-        : "one person is already on board"
-      : "New";
+    return num !== 0 ? (
+      num > 1 ? (
+        <span>
+          Already <br /> {`${num} followers`}
+        </span>
+      ) : (
+        <span>
+          Already <br /> {`${num} follower`}
+        </span>
+      )
+    ) : (
+      <span className="badge badge-pill badge-info">New</span>
+    );
+  };
+  renderDescription = description => {
+    return (
+      <React.Fragment>
+        {description && (
+          <Hover on={description} out={<i className="fa fa-info-circle" />} />
+        )}
+      </React.Fragment>
+    );
   };
   render() {
     const challenges = this.state.data;
     const columns = [
       { header: "Title", path: "title" },
-      { header: "Description", path: "description" },
+      {
+        header: "",
+        content: ({ description }) => this.renderDescription(description)
+      },
       { header: "Category", path: "category" },
       {
         header: "",

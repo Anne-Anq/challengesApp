@@ -3,17 +3,17 @@ import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
 
 class Table extends Component {
-  renderDeleteButton = id => {
+  renderDeleteButton = (id, label = "Delete") => {
     return (
       <button className="btn btn-danger" onClick={() => this.handleDelete(id)}>
-        Delete
+        {label}
       </button>
     );
   };
-  renderAddButton = id => {
+  renderAddButton = (id, label = "Take it!") => {
     return (
       <button className="btn btn-primary" onClick={() => this.handleAdd(id)}>
-        Take it!
+        {label}
       </button>
     );
   };

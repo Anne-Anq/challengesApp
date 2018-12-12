@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "./commons/table";
+import { Link } from "react-router-dom";
 import { quitChallenge } from "../services/users";
 import { getUserData } from "../services/users";
 
@@ -10,31 +11,55 @@ class MyProfile extends Table {
   };
   async componentDidMount() {
     const {
-      data: { challengesTaken: data }
+      data: { challengesTaken }
     } = await getUserData(this.props.user._id);
+
+    const data = challengesTaken.map(c => {
+      c.challengeTitle = c.challenge.title;
+      c.challengeId = c.challenge._id;
+      return c;
+    });
     this.setState({ data });
   }
   doDelete = async id => {
+    const previousState = { ...this.state };
+    let data = [...this.state.data];
+    data = data.filter(d => {
+      return d.challengeId !== id;
+    });
+    this.setState({ data });
     try {
       return await quitChallenge(id);
     } catch (error) {
+      this.setState(previousState);
       console.log(error.response);
     }
   };
   render() {
     const columns = [
-      { header: "Title", path: "title" },
+      { header: "Title", path: "challengeTitle" },
+      { header: "Remaining Days", path: "remainingDays" },
+      {
+        header: "Log Today's",
+        content: ({ challengeId }) =>
+          this.renderAddButton(challengeId, "Did it!")
+      },
       {
         header: "",
-        content: ({ _id }) => this.renderDeleteButton(_id)
+        content: ({ challengeId }) =>
+          this.renderDeleteButton(challengeId, "Quit?")
       }
     ];
+
     return (
-      <React.Fragment>
-        <h1>My Profile</h1>
-        <h2>Mychallenges</h2>
+      <div className="container">
+        <h2>My achievements</h2>
+        <h2>My current challenges</h2>
         <Table columns={columns} datas={this.state.data} />
-      </React.Fragment>
+        <Link className="btn btn-info" to="/challenges">
+          Go Back to the Challenges
+        </Link>
+      </div>
     );
   }
 }
