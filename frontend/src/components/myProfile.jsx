@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "./commons/table";
 import { Link } from "react-router-dom";
-import { quitChallenge } from "../services/users";
+import { quitChallenge, logChallenge } from "../services/users";
 import { getUserData } from "../services/users";
 
 class MyProfile extends Table {
@@ -30,6 +30,21 @@ class MyProfile extends Table {
     this.setState({ data });
     try {
       return await quitChallenge(id);
+    } catch (error) {
+      this.setState(previousState);
+      console.log(error.response);
+    }
+  };
+  doAdd = async id => {
+    const previousState = { ...this.state };
+    let data = [...this.state.data];
+    data = data.map(d => {
+      if (d.challengeId === id) d.remainingDays--;
+      return d;
+    });
+    this.setState({ data });
+    try {
+      return await logChallenge(id);
     } catch (error) {
       this.setState(previousState);
       console.log(error.response);

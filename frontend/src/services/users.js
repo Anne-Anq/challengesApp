@@ -11,4 +11,8 @@ const quitChallenge = async id => {
   return await axios.put(`${apiEndPoint}/challenges/${id}`);
 };
 
-export { getUserData, quitChallenge };
+const logChallenge = async id => {
+  return await axios.put(`${apiEndPoint}/challenges/log/${id}`);
+};
+
+export { getUserData, quitChallenge, logChallenge };
