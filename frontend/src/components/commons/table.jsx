@@ -10,9 +10,13 @@ class Table extends Component {
       </button>
     );
   };
-  renderAddButton = (id, label = "Take it!") => {
+  renderAddButton = (id, disabled = false, label = "Take it!") => {
     return (
-      <button className="btn btn-primary" onClick={() => this.handleAdd(id)}>
+      <button
+        className="btn btn-primary"
+        disabled={disabled}
+        onClick={() => this.handleAdd(id)}
+      >
         {label}
       </button>
     );

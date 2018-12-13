@@ -17,6 +17,7 @@ class MyProfile extends Table {
     const data = challengesTaken.map(c => {
       c.challengeTitle = c.challenge.title;
       c.challengeId = c.challenge._id;
+      c.isLoggedToday = false;
       return c;
     });
     this.setState({ data });
@@ -39,7 +40,11 @@ class MyProfile extends Table {
     const previousState = { ...this.state };
     let data = [...this.state.data];
     data = data.map(d => {
-      if (d.challengeId === id) d.remainingDays--;
+      if (d.challengeId === id) {
+        d.remainingDays--;
+        d.isLoggedToday = true;
+        if (d.remainingDays === 0) d.isCompleted = true;
+      }
       return d;
     });
     this.setState({ data });
@@ -50,14 +55,18 @@ class MyProfile extends Table {
       console.log(error.response);
     }
   };
+
   render() {
-    const columns = [
+    const notCompletedColumns = [
       { header: "Title", path: "challengeTitle" },
-      { header: "Remaining Days", path: "remainingDays" },
+      {
+        header: "Remaining Days",
+        path: "remainingDays"
+      },
       {
         header: "Log Today's",
-        content: ({ challengeId }) =>
-          this.renderAddButton(challengeId, "Did it!")
+        content: ({ challengeId, isLoggedToday }) =>
+          this.renderAddButton(challengeId, isLoggedToday, "Did it!")
       },
       {
         header: "",
@@ -65,12 +74,45 @@ class MyProfile extends Table {
           this.renderDeleteButton(challengeId, "Quit?")
       }
     ];
+    const notCompleted = [...this.state.data].filter(
+      d => d.isCompleted === false
+    );
+    const completed = [...this.state.data].filter(d => d.isCompleted === true);
 
     return (
       <div className="container">
         <h2>My achievements</h2>
+        <React.Fragment>
+          {completed.length >= 1 && (
+            <React.Fragment>
+              <h6>
+                Congrats, you have already completed the following challenge
+                {completed.length > 1 && `s`}:
+              </h6>
+              {completed.map(c => (
+                <li key={c._id}>{c.challengeTitle}</li>
+              ))}
+            </React.Fragment>
+          )}
+          {completed.length < 1 && (
+            <React.Fragment>
+              <h6>Looks like you haven't completed any challenge yet</h6>
+            </React.Fragment>
+          )}
+        </React.Fragment>
+
         <h2>My current challenges</h2>
-        <Table columns={columns} datas={this.state.data} />
+        <React.Fragment>
+          {notCompleted.length >= 1 && (
+            <Table columns={notCompletedColumns} datas={notCompleted} />
+          )}
+          {notCompleted.length < 1 && (
+            <React.Fragment>
+              <h6>Looks like you aren't taking any challenge at the moment</h6>
+            </React.Fragment>
+          )}
+        </React.Fragment>
+
         <Link className="btn btn-info" to="/challenges">
           Go Back to the Challenges
         </Link>
