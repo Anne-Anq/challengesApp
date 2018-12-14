@@ -1,23 +1,32 @@
 import React, { Component } from "react";
 import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
+import("./table.css");
 
 class Table extends Component {
   renderDeleteButton = (id, label = "Delete") => {
     return (
-      <button className="btn btn-danger" onClick={() => this.handleDelete(id)}>
+      <button
+        className="btn btn-danger btn-size"
+        onClick={() => this.handleDelete(id)}
+      >
         {label}
       </button>
     );
   };
-  renderAddButton = (id, disabled = false, label = "Take it!") => {
+  renderAddButton = (
+    id,
+    disabled = false,
+    label1 = "Take it!",
+    label2 = "Taken"
+  ) => {
     return (
       <button
-        className="btn btn-primary"
+        className="btn btn-primary btn-size"
         disabled={disabled}
         onClick={() => this.handleAdd(id)}
       >
-        {label}
+        {(disabled && label2) || (!disabled && label1)}
       </button>
     );
   };

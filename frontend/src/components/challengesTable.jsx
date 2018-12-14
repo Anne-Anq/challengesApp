@@ -94,11 +94,11 @@ class ChallengesTable extends Table {
       },
       { header: "Category", path: "category" },
       {
-        header: "",
+        header: "Followers",
         content: ({ followers }) => this.renderFollowers(followers)
       },
       {
-        header: "",
+        header: "Taken",
         content: ({ _id }) =>
           this.renderAddButton(_id, this.isChallengeTaken(_id))
       }

@@ -14,10 +14,13 @@ class MyProfile extends Table {
       data: { challengesTaken }
     } = await getUserData(this.props.user._id);
 
+    let today = new Date().toLocaleDateString();
+
     const data = challengesTaken.map(c => {
       c.challengeTitle = c.challenge.title;
       c.challengeId = c.challenge._id;
-      c.isLoggedToday = false;
+      const lastLog = new Date(c.date).toLocaleDateString();
+      c.isLoggedToday = lastLog === today ? true : false;
       return c;
     });
     this.setState({ data });
@@ -66,7 +69,7 @@ class MyProfile extends Table {
       {
         header: "Log Today's",
         content: ({ challengeId, isLoggedToday }) =>
-          this.renderAddButton(challengeId, isLoggedToday, "Did it!")
+          this.renderAddButton(challengeId, isLoggedToday, "Did it!", "Done")
       },
       {
         header: "",
