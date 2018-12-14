@@ -15,12 +15,14 @@ class MyProfile extends Table {
     } = await getUserData(this.props.user._id);
 
     let today = new Date().toLocaleDateString();
-
+    const oneDayInMs = 86400000;
     const data = challengesTaken.map(c => {
       c.challengeTitle = c.challenge.title;
       c.challengeId = c.challenge._id;
       const lastLog = new Date(c.date).toLocaleDateString();
       c.isLoggedToday = lastLog === today ? true : false;
+      c.isFailed =
+        Date.parse(today) - Date.parse(lastLog) > oneDayInMs ? true : false;
       return c;
     });
     this.setState({ data });
@@ -68,8 +70,8 @@ class MyProfile extends Table {
       },
       {
         header: "Log Today's",
-        content: ({ challengeId, isLoggedToday }) =>
-          this.renderAddButton(challengeId, isLoggedToday, "Did it!", "Done")
+        content: ({ challengeId, isLoggedToday, isFailed }) =>
+          this.renderLogButton(challengeId, isLoggedToday, isFailed)
       },
       {
         header: "",

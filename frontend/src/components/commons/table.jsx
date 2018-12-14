@@ -30,7 +30,19 @@ class Table extends Component {
       </button>
     );
   };
-
+  renderLogButton = (id, disabled = false, failed) => {
+    return (
+      <button
+        className={`btn btn-size btn-${failed ? "danger" : "primary"}`}
+        disabled={disabled || failed}
+        onClick={() => this.handleAdd(id)}
+      >
+        {(failed && `Failed`) ||
+          (disabled && `Done`) ||
+          (!disabled && `Log it!`)}
+      </button>
+    );
+  };
   handleDelete = async id => {
     const previousState = { ...this.state };
     let data = [...this.state.data];
