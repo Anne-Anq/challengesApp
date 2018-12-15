@@ -29,6 +29,11 @@ class Navbar extends Component {
               <NavLink className="nav-item nav-link m-2" to="/me">
                 {user.firstName}'s profile
               </NavLink>
+              {user.isAdmin && (
+                <NavLink className="nav-item nav-link m-2" to="/categories">
+                  Categories
+                </NavLink>
+              )}
               <NavLink className="nav-item nav-link m-2" to="/logout">
                 Sign out
                 <i className="fa fa-sign-out m-2" />

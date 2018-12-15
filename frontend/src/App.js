@@ -6,6 +6,7 @@ import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
 import ChallengesTable from "./components/challengesTable";
 import ChallengeForm from "./components/challengeForm";
+import Categories from "./components/categories";
 import MyProfile from "./components/myProfile";
 import { getUser } from "./services/auth";
 import "./App.css";
@@ -32,6 +33,7 @@ class App extends Component {
           <Route path="/register" component={RegisterForm} />
           <Route path="/logout" component={Logout} />
           <Route path="/challenges/new" component={ChallengeForm} />
+          <Route path="/categories" component={Categories} />
           <Route path="/" component={ChallengesTable} />
         </Switch>
       </div>

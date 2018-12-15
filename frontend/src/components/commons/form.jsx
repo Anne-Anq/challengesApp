@@ -30,14 +30,14 @@ class Form extends Component {
     return !!this.state.error && !error;
   }
 
-  renderInput = (path, label) => {
+  renderInput = (path, name, label = true) => {
     return (
       <Input
         path={path}
-        label={label}
+        label={label && name}
         value={this.state.data[path]}
         onChange={this.handleChange}
-        placeholder={`Enter ${label}`}
+        placeholder={`Enter ${name}`}
         error={this.state.error[path]}
       />
     );

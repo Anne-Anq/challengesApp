@@ -7,4 +7,12 @@ const getCategories = async () => {
   return await axios.get(apiEndPoint);
 };
 
-export { getCategories };
+const addCategory = async data => {
+  return await axios.post(apiEndPoint, data);
+};
+
+const deleteCategory = async id => {
+  return await axios.delete(`${apiEndPoint}/${id}`);
+};
+
+export { getCategories, addCategory, deleteCategory };
