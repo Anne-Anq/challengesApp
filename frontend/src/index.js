@@ -7,6 +7,8 @@ import "font-awesome/css/font-awesome.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+console.log("ENVIRONMENT:", process.env.REACT_APP_NAME);
+
 ReactDOM.render(
   <BrowserRouter>
     <App />

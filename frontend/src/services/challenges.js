@@ -1,7 +1,7 @@
 import axios from "axios";
-import { apiUrl } from "../config.json";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
-const apiEndPoint = apiUrl + "/challenges";
+const apiEndPoint = "/challenges";
 
 const getChallenges = async () => {
   return await axios.get(apiEndPoint);
