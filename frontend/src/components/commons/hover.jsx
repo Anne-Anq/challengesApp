@@ -15,7 +15,8 @@ class Hover extends Component {
     const { on, out } = this.props;
     return (
       <i onMouseEnter={this.hoverOn} onMouseLeave={this.hoverOff}>
-        {this.state.hover ? on : out}
+        {out}
+        {this.state.hover ? on : ""}
       </i>
     );
   };

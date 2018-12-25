@@ -36,6 +36,12 @@ class RegisterForm extends Form {
     return (
       <div className="container">
         <h1>Register</h1>
+        <div className="inLine">
+          <h4 className="tips">Already have an account?</h4>
+          <a className="btn btn-primary registerBtn" href="/login">
+            Sign in
+          </a>
+        </div>
         <form>
           {this.renderInput("firstName", "First Name")}
           {this.renderInput("email", "Email Address")}

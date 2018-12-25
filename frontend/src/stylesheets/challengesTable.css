@@ -1,0 +1,40 @@
+.popup {
+  border: 1px solid grey;
+  border-radius: 5px;
+  position: absolute;
+  padding: 10px;
+  margin: 0;
+  left: -30px;
+  width: 250px;
+  top: 30px;
+  background-color: whitesmoke;
+  z-index: 1;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -5px;
+  top: 22px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid whitesmoke;
+  margin: 0;
+  z-index: 2;
+}
+.arrowBorder {
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -5px;
+  top: 21px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid black;
+  margin: 0;
+  z-index: 0;
+}
+.wrapper {
+  position: relative;
+  width: 20px;
+}

@@ -9,6 +9,7 @@ import { getUser } from "../services/auth";
 import { getUserData } from "../services/users";
 import Table from "./commons/table";
 import Hover from "./commons/hover";
+import "../stylesheets/challengesTable.css";
 
 class ChallengesTable extends Table {
   state = {
@@ -38,11 +39,11 @@ class ChallengesTable extends Table {
   doAdd = async id => {
     const { user } = this.state;
     if (!user) {
-      return (window.location = "/login");
+      return (window.location.pathname = "/login");
     }
     try {
       const { data } = await takeChallenge(id);
-      window.location = "/me";
+      window.location.pathname = "/me";
       return data;
     } catch (error) {
       if (error.response.status === 401) console.log(error.response.data);
@@ -64,12 +65,23 @@ class ChallengesTable extends Table {
     );
   };
   renderDescription = description => {
+    const descriptionPopup = () => (
+      <div>
+        <div className="arrow" />
+        <div className="arrowBorder" />
+        <div className="popup">{description}</div>
+      </div>
+    );
+
     return (
-      <React.Fragment>
+      <div className="wrapper">
         {description && (
-          <Hover on={description} out={<i className="fa fa-info-circle" />} />
+          <Hover
+            on={descriptionPopup()}
+            out={<i className="fa fa-info-circle" />}
+          />
         )}
-      </React.Fragment>
+      </div>
     );
   };
   isChallengeTaken = challengeId => {

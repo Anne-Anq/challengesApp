@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
-import("./table.css");
+import("../../stylesheets/table.css");
 
 class Table extends Component {
   renderDeleteButton = (id, label = "Delete") => {

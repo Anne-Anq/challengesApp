@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { getUser } from "../services/auth";
+import "../stylesheets/navbar.css";
 
 class Navbar extends Component {
   state = {};
@@ -9,7 +10,8 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-light bg-light">
         <NavLink className="navbar-brand" to="/">
-          ChallengeApp
+          <img src="30.jpg" id="logo" alt="logo" />
+          -Day Challenges
         </NavLink>
         <div className="navbar-nav navbar-expand-sm">
           {!user && (
