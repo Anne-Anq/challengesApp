@@ -13,12 +13,24 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    user: ""
+    user: "",
+    width: "",
+    height: ""
   };
   componentWillMount() {
     const user = getUser();
     if (user) this.setState({ user });
   }
+  componentDidMount = () => {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  };
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  };
+  updateWindowDimensions = () => {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  };
   render() {
     const user = this.state.user;
     return (
@@ -28,13 +40,23 @@ class App extends Component {
           <Route path="/login" component={LoginForm} />
           <Route
             path="/me"
-            render={props => <MyProfile {...props} user={user} />}
+            render={props => <MyProfile {...props} {...this.state} />}
           />
           <Route path="/register" component={RegisterForm} />
           <Route path="/logout" component={Logout} />
-          <Route path="/challenges/new" component={ChallengeForm} />
-          <Route path="/categories" component={Categories} />
-          <Route path="/" component={ChallengesTable} />
+          <Route
+            path="/challenges/new"
+            render={props => <ChallengeForm {...props} {...this.state} />}
+          />
+          <Route
+            path="/categories"
+            render={props => <Categories {...props} {...this.state} />}
+          />
+
+          <Route
+            path="/"
+            render={props => <ChallengesTable {...props} {...this.state} />}
+          />
         </Switch>
       </div>
     );

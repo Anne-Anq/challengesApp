@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TableBodyChallenges from "./tableBodyChallenges";
 import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
 import("../../stylesheets/table.css");
@@ -57,19 +58,20 @@ class Table extends Component {
   };
 
   handleAdd = async id => {
-    const user = await this.doAdd(id);
+    await this.doAdd(id);
     //window.location = "/me";
   };
-
-  render() {
-    const { columns, datas } = this.props;
+  renderTableHeader = (columns, datas, width) => {
+    return <TableHeader columns={columns} datas={datas} width={width} />;
+  };
+  renderTableBody = (columns, datas, width) => {
+    return <TableBody columns={columns} datas={datas} width={width} />;
+  };
+  renderTableBodyChallenges = (columns, datas, width) => {
     return (
-      <table className="table">
-        <TableHeader columns={columns} />
-        <TableBody datas={datas} columns={columns} />
-      </table>
+      <TableBodyChallenges columns={columns} datas={datas} width={width} />
     );
-  }
+  };
 }
 
 export default Table;

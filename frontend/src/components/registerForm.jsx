@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./commons/form";
 import Joi from "joi-browser";
 import { register } from "../services/sign";
+import "../stylesheets/registerForm.css";
 
 class RegisterForm extends Form {
   state = {

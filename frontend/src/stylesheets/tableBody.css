@@ -1,0 +1,28 @@
+tr {
+  text-align: center;
+}
+td.title {
+  text-align: left;
+}
+.logBtn button,
+.quitBtn button {
+  padding: 0 0.5rem;
+  margin: 0;
+  width: auto;
+}
+.logBtn button {
+  width: 62px;
+}
+.logBtn,
+.quitBtn {
+  padding: 0;
+  margin: 0;
+  width: auto;
+}
+.table th,
+.table td {
+  padding: 0.75rem 0;
+}
+.table thead th {
+  vertical-align: middle;
+}

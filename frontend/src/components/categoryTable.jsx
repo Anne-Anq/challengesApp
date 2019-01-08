@@ -12,7 +12,10 @@ class CategoryTable extends Table {
   };
   async componentDidMount() {
     let { data } = await getCategories();
-
+    data = data.map(d => {
+      d.hide = true;
+      return d;
+    });
     this.setState({ data });
     const userAuth = getUser();
     if (userAuth) {
@@ -37,7 +40,10 @@ class CategoryTable extends Table {
 
     return (
       <div className="container">
-        <Table columns={columns} datas={categories} />
+        <table className="table">
+          {this.renderTableHeader(columns, categories, this.props.width)}
+          {this.renderTableBody(columns, categories, this.props.width)}
+        </table>
       </div>
     );
   }
